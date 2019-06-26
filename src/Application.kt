@@ -6,16 +6,19 @@ import com.instagraham.app.home
 import com.instagraham.app.users
 import com.instagraham.repository.InMemoryRepository
 import com.ryanharter.ktor.moshi.moshi
+import freemarker.cache.ClassTemplateLoader
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
 import io.ktor.features.StatusPages
+import io.ktor.freemarker.FreeMarker
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.response.respondText
 import io.ktor.routing.routing
+import com.instagraham.api.users as apiUsers
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -32,13 +35,18 @@ fun Application.module(testing: Boolean = false) {
         moshi()
     }
 
+    install(FreeMarker) {
+        templateLoader = ClassTemplateLoader(this::class.java.classLoader, "templates")
+    }
+
     val db = InMemoryRepository()
 
     routing {
         home()
         about()
-        user(db)
         users(db)
+        user(db)
+        apiUsers(db)
     }
 }
 
