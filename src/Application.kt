@@ -3,6 +3,7 @@ package com.instagraham
 import com.instagraham.api.user
 import com.instagraham.app.about
 import com.instagraham.app.home
+import com.instagraham.app.users
 import com.instagraham.repository.InMemoryRepository
 import com.ryanharter.ktor.moshi.moshi
 import io.ktor.application.Application
@@ -37,6 +38,7 @@ fun Application.module(testing: Boolean = false) {
         home()
         about()
         user(db)
+        users(db)
     }
 }
 

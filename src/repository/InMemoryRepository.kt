@@ -25,8 +25,8 @@ class InMemoryRepository : Repository {
         return users.find { it.email == email }
     }
 
-    override suspend fun users(): List<User> {
-        return users.toList()
+    override suspend fun users(): ArrayList<User> {
+        return users
     }
 
     override suspend fun remove(user: User) {
