@@ -34,4 +34,5 @@ dependencies {
     compile "com.ryanharter.ktor:ktor-moshi:$moshi_version"
     compile "io.ktor:ktor-freemarker:$ktor_version"
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
+    compile "io.ktor:ktor-auth:$ktor_version"
 }

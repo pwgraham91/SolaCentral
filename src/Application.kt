@@ -4,12 +4,15 @@ import com.instagraham.api.user
 import com.instagraham.app.about
 import com.instagraham.app.home
 import com.instagraham.app.users
+import com.instagraham.model.User
 import com.instagraham.repository.InMemoryRepository
 import com.ryanharter.ktor.moshi.moshi
 import freemarker.cache.ClassTemplateLoader
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
+import io.ktor.auth.Authentication
+import io.ktor.auth.basic
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
 import io.ktor.features.StatusPages
@@ -37,6 +40,19 @@ fun Application.module(testing: Boolean = false) {
 
     install(FreeMarker) {
         templateLoader = ClassTemplateLoader(this::class.java.classLoader, "templates")
+    }
+
+    install(Authentication) {
+        basic(name = "auth") {
+            realm = "Ktor server"
+            validate { credentials ->
+                if (credentials.password == "${credentials.name}123") {
+                    User("test@user.com", credentials.name)
+                } else {
+                    null
+                }
+            }
+        }
     }
 
     val db = InMemoryRepository()

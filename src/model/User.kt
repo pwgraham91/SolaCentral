@@ -1,5 +1,7 @@
 package com.instagraham.model
 
-data class User(val email: String, val name: String, val isHOA: Boolean = false) {
+import io.ktor.auth.Principal
+
+data class User(val email: String, val name: String, val isHOA: Boolean = false) : Principal {
     var id: Int? = null
 }
