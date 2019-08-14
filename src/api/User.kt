@@ -16,8 +16,8 @@ fun Route.user(db: Repository) {
     authenticate("auth") {
         post(USER_ENDPOINT) {
             val request = call.receive<Request>()
-            val user = db.add(request.email, request.name)
-            call.respond(user)
+            db.add(request.email, request.name)
+            call.respond(200)
         }
     }
 }
