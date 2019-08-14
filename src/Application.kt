@@ -4,8 +4,9 @@ import com.instagraham.api.user
 import com.instagraham.app.about
 import com.instagraham.app.home
 import com.instagraham.app.users
-import com.instagraham.model.User
-import com.instagraham.repository.InMemoryRepository
+import com.instagraham.model.UserAuth
+import com.instagraham.repository.DatabaseFactory
+import com.instagraham.repository.UsersRepository
 import com.ryanharter.ktor.moshi.moshi
 import freemarker.cache.ClassTemplateLoader
 import io.ktor.application.Application
@@ -47,7 +48,7 @@ fun Application.module(testing: Boolean = false) {
             realm = "Ktor server"
             validate { credentials ->
                 if (credentials.password == "${credentials.name}123") {
-                    User("test@user.com", credentials.name)
+                    UserAuth("test@user.com", credentials.name)
                 } else {
                     null
                 }
@@ -55,7 +56,9 @@ fun Application.module(testing: Boolean = false) {
         }
     }
 
-    val db = InMemoryRepository()
+    DatabaseFactory.init()
+
+    val db = UsersRepository()
 
     routing {
         home()

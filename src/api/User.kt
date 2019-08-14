@@ -2,7 +2,6 @@ package com.instagraham.api
 
 import com.instagraham.API_VERSION
 import com.instagraham.model.Request
-import com.instagraham.model.User
 import com.instagraham.repository.Repository
 import io.ktor.application.call
 import io.ktor.auth.authenticate
@@ -17,7 +16,7 @@ fun Route.user(db: Repository) {
     authenticate("auth") {
         post(USER_ENDPOINT) {
             val request = call.receive<Request>()
-            val user = db.add(User(request.email, request.name))
+            val user = db.add(request.email, request.name)
             call.respond(user)
         }
     }
