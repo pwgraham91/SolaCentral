@@ -39,3 +39,5 @@ dependencies {
     compile "org.postgresql:postgresql:$psql_version"
     compile "com.zaxxer:HikariCP:$hikaricp_version"
 }
+
+task stage(dependsOn: ['installDist'])
