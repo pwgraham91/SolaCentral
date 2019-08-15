@@ -40,4 +40,5 @@ dependencies {
     compile "com.zaxxer:HikariCP:$hikaricp_version"
 }
 
+// change this
 task stage(dependsOn: ['installDist'])
