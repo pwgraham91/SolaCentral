@@ -1,1 +1,1 @@
-web: ./build/install/solacentral/bin/solacentral
+web: ./build/install/SolaCentral/bin/SolaCentral
