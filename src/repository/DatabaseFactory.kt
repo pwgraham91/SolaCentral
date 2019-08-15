@@ -7,7 +7,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object DatabaseFactory {
@@ -16,25 +15,13 @@ object DatabaseFactory {
 
         transaction {
             SchemaUtils.create(Users)
-
-            Users.insert {
-                it[email] = "email@one.com"
-                it[name] = "name one"
-                it[isHOA] = true
-            }
-
-            Users.insert {
-                it[email] = "email@two.com"
-                it[name] = "name two"
-                it[isHOA] = false
-            }
         }
     }
 
     private fun hikari(): HikariDataSource {
         val config = HikariConfig()
-        config.driverClassName = "org.h2.Driver"
-        config.jdbcUrl = "jdbc:h2:mem:test"
+        config.driverClassName = "org.postgresql.Driver"
+        config.jdbcUrl = "jdbc:postgresql:sola_central"
         config.isAutoCommit = false
         config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
         config.validate()

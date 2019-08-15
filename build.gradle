@@ -36,6 +36,6 @@ dependencies {
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
     compile "io.ktor:ktor-auth:$ktor_version"
     compile "org.jetbrains.exposed:exposed:$exposed_version"
-    compile "com.h2database:h2:$h2_version"
+    compile "org.postgresql:postgresql:$psql_version"
     compile "com.zaxxer:HikariCP:$hikaricp_version"
 }
